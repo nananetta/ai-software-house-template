@@ -1,0 +1,67 @@
+<article id="document-content" data-document-type="architecture-technical-spec">
+<header><h1>[Product] — Architecture technical specification</h1><p>TEMPLATE / DRAFT — replace bracketed prompts and illustrative examples; no product decisions or approvals are recorded.</p><dl data-role="document-metadata"><dt>Owner</dt><dd data-field="owner">Solution Architect</dd><dt>Stage</dt><dd data-field="stage">Architecture</dd><dt>Version</dt><dd data-field="version">0.1-draft</dd><dt>Status</dt><dd data-field="status">Template — unapproved</dd><dt>Updated</dt><dd data-field="updated">[YYYY-MM-DD]</dd><dt>Upstream baseline</dt><dd data-field="baseline">[Approved planning versions and approval record]</dd></dl></header>
+<section id="design-scope" aria-labelledby="design-scope-title">
+<h2 id="design-scope-title">Design scope and drivers</h2>
+<p><strong>Purpose:</strong> [Solution outcome]. <strong>Boundary:</strong> [In / out].</p><p><strong>Drivers:</strong> [Approved requirement IDs, constraints and accepted open items].</p><p><strong>Approved input evidence:</strong> [Planning document versions, approval record and identity references].</p>
+</section>
+<section id="solution-architecture" aria-labelledby="solution-architecture-title">
+<h2 id="solution-architecture-title">Components and responsibilities</h2>
+<figure id="architecture-diagram"><figcaption>Illustrative architecture — not a technology decision</figcaption><p data-role="diagram-description">A user interacts with a product boundary containing an interface and processing component. Components are logical; this does not imply a backend.</p><script type="text/plain" data-role="diagram-source">
+@startuml
+actor User
+rectangle Product {
+component Interface
+component Processing
+}
+User --> Interface
+Interface --> Processing
+@enduml
+</script><div data-role="diagram-render"></div></figure><table><caption>Design choices</caption><thead><tr><th scope="col">ID / component</th><th scope="col">Responsibility / dependency</th><th scope="col">Choice and rationale</th></tr></thead><tbody><tr><th scope="row">DES-001 — Interface</th><td>[Interaction boundary and dependencies]</td><td>[Technology and trade-off]</td></tr><tr><th scope="row">DES-002 — Processing</th><td>[Logical responsibility; local or backend as selected]</td><td>[Technology and trade-off]</td></tr></tbody></table>
+</section>
+<section id="use-cases" aria-labelledby="use-cases-title">
+<h2 id="use-cases-title">Actors and supported capabilities</h2>
+<figure id="use-case-diagram"><figcaption>Illustrative use case — replace with agreed actors and capabilities</figcaption><p data-role="diagram-description">A user requests an outcome from the product. Add permissions and additional actors only when required.</p><script type="text/plain" data-role="diagram-source">
+@startuml
+actor User
+rectangle Product {
+usecase "Request outcome" as UC1
+}
+User --> UC1
+@enduml
+</script><div data-role="diagram-render"></div></figure><p>[Map actors, permissions and capabilities to FR IDs; identify trust boundaries.]</p>
+</section>
+<section id="interactions" aria-labelledby="interactions-title">
+<h2 id="interactions-title">Interactions and failure paths</h2>
+<figure id="sequence-diagram"><figcaption>Illustrative interaction — replace with agreed behavior</figcaption><p data-role="diagram-description">The interface requests a result from a logical processing component, which returns a result or a validation error.</p><script type="text/plain" data-role="diagram-source">
+@startuml
+actor User
+participant Interface
+participant Processing
+User -> Interface: Request outcome
+Interface -> Processing: Validate and process
+alt Accepted
+Processing --> Interface: Result
+else Rejected
+Processing --> Interface: Validation error
+end
+Interface --> User: Show outcome
+@enduml
+</script><div data-role="diagram-render"></div></figure><p><strong>Authentication / authorization:</strong> [Approach or N/A]. <strong>Session continuity:</strong> [Refresh behavior or N/A]. <strong>Origins / CORS:</strong> [Local and public origin strategy or N/A].</p><p><strong>Failure handling:</strong> [Validation, timeout, retry, duplicate and recovery behavior as applicable].</p>
+</section>
+<section id="data-contracts" aria-labelledby="data-contracts-title">
+<h2 id="data-contracts-title">Data and interface design</h2>
+<table><caption>Data and contracts</caption><thead><tr><th scope="col">Area</th><th scope="col">Design</th><th scope="col">Requirement link</th></tr></thead><tbody><tr><th scope="row">Data model / lifecycle</th><td>[Entities, ownership, storage, retention and deletion]</td><td>[DATA / NFR IDs]</td></tr><tr><th scope="row">Interfaces / API</th><td>[Boundary, contract direction, inputs/outputs and versioning]</td><td>[EXT / FR IDs]</td></tr><tr><th scope="row">Validation / errors</th><td>[Rules, error semantics and failure ownership]</td><td>[BR / FR IDs]</td></tr></tbody></table>
+</section>
+<section id="quality-deployment" aria-labelledby="quality-deployment-title">
+<h2 id="quality-deployment-title">Quality and deployment</h2>
+<table><caption>Quality design and verification</caption><thead><tr><th scope="col">Target</th><th scope="col">Design response</th><th scope="col">Verification</th></tr></thead><tbody><tr><th scope="row">[Performance / capacity NFR]</th><td>[Approach and limit]</td><td>[Measurement]</td></tr><tr><th scope="row">[Security / privacy NFR]</th><td>[Controls and data protection]</td><td>[Checks]</td></tr><tr><th scope="row">[Accessibility / reliability / maintainability NFR]</th><td>[Approach, recovery and supportability]</td><td>[Checks]</td></tr></tbody></table><dl><dt>Selected deployment</dt><dd>[Workers static assets OR Docker through Cloudflare Tunnel; rationale tied to backend/database needs]</dd><dt>Configuration / observability</dt><dd>[Runtime owner, config locations, logs and health signals; no secret values]</dd><dt>Migration / rollback</dt><dd>[Persistent data, recovery and rollback approach, or N/A]</dd></dl>
+</section>
+<section id="assumptions-unknowns" aria-labelledby="assumptions-unknowns-title">
+<h2 id="assumptions-unknowns-title">Assumptions and unknown details</h2>
+<table><caption>Assumptions and unknown details</caption><thead><tr><th scope="col">ID</th><th scope="col">Question / proposed assumption</th><th scope="col">Affected item</th><th scope="col">Impact if unresolved</th><th scope="col">Decision owner</th><th scope="col">Status / answer</th></tr></thead><tbody><tr><th scope="row">Q-001</th><td>[Decision-focused question]</td><td>[FR / design ID]</td><td>[Dependent work blocked]</td><td>[Owner via PM]</td><td>Unresolved — no answer recorded</td></tr><tr><th scope="row">A-001</th><td>[Proposed assumption]</td><td>[Affected requirement / design]</td><td>[Consequence if false]</td><td>[Confirming owner]</td><td>Unconfirmed — not a decision</td></tr></tbody></table><p><strong>Risk / alternative:</strong> [Material trade-off, mitigation and owner]. Unresolved business decisions return through PM.</p>
+</section>
+<section id="design-traceability" aria-labelledby="design-traceability-title">
+<h2 id="design-traceability-title">Traceability and handoff</h2>
+<table><caption>Design coverage</caption><thead><tr><th scope="col">Requirement</th><th scope="col">Design / flow</th><th scope="col">Verification</th></tr></thead><tbody><tr><th scope="row">FR-001</th><td>DES-001 / sequence-diagram</td><td>AC-001 / [check]</td></tr><tr><th scope="row">[NFR ID]</th><td>[Design response]</td><td>[Validation approach]</td></tr></tbody></table><p>Submit with the matching CEO technical presentation. PM records the CEO design decision and artifact identities before handing the approved package to Tech Lead.</p>
+</section>
+</article>

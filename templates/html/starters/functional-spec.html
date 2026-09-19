@@ -1,0 +1,339 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>[Product] — Functional specification</title>
+<style>
+:root { color-scheme:light; --red:#ED1B2E; --grey:#898989; font-family:Arial,Helvetica,sans-serif; color:#202020; background:#fff; }
+* { box-sizing:border-box; }
+body { margin:0; font-size:16px; line-height:1.5; }
+a { color:#a91422; text-underline-offset:3px; }
+button { font:inherit; padding:.4rem .8rem; border:1px solid #898989; background:#fff; color:#202020; border-radius:3px; cursor:pointer; }
+button:focus-visible,a:focus-visible { outline:3px solid #ED1B2E; outline-offset:3px; }
+button:disabled { opacity:.5; cursor:default; }
+.toolbar { position:sticky; top:0; z-index:2; padding:.6rem 2rem; background:#fff; border-bottom:1px solid #ddd; display:flex; align-items:center; flex-wrap:wrap; gap:.6rem; }
+#render-status { margin-left:auto; font-size:.8rem; max-width:44rem; }
+#document-content { max-width:1100px; margin:auto; padding:2.5rem; }
+h1 { font-size:2.5rem; line-height:1.13; margin:.5rem 0 1rem; letter-spacing:-.03em; }
+h2 { font-size:1.7rem; line-height:1.2; margin:0 0 .4rem; border-top:3px solid var(--red); padding-top:.7rem; }
+h3 { font-size:1.08rem; margin:1rem 0 .35rem; }
+p { margin:.5rem 0 1rem; }
+section { margin:2rem 0; scroll-margin-top:6rem; }
+[data-role=subtitle],figcaption { color:#555; font-size:.93em; }
+dl { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.25rem 1rem; }
+dl > div { display:flex; gap:.5rem; }
+dt { font-weight:700; }
+dd { margin:0; }
+header dl { font-size:.8rem; color:#555; }
+ul,ol { padding-left:1.3rem; }
+li { margin:.25rem 0; }
+table { width:100%; border-collapse:collapse; font-size:.88em; margin:1rem 0; overflow-wrap:anywhere; }
+caption { text-align:left; font-weight:bold; margin-bottom:.5rem; }
+th,td { padding:.55rem .65rem; border-bottom:1px solid #ddd; text-align:left; vertical-align:top; }
+th { background:#f5f5f5; font-weight:700; }
+figure { margin:1.2rem 0; }
+figure > p { font-size:.85em; }
+[data-role=diagram-render] { text-align:center; min-height:1rem; }
+[data-role=diagram-render] svg { max-width:100%; height:auto; }
+[data-role=diagram-source] { display:block; white-space:pre-wrap; overflow-wrap:anywhere; font:12px/1.4 monospace; text-align:left; border-left:2px solid #898989; padding:.7rem; }
+figure[data-render-state=ready] [data-role=diagram-source] { display:none; }
+figure[data-render-state=failed] [data-role=diagram-render] { color:#a91422; text-align:left; }
+[data-role=slide-icon] { width:30px; height:30px; color:var(--grey); float:right; }
+.canvas,.columns { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.7rem 1.5rem; }
+.canvas > *, .columns > * { min-width:0; }
+.canvas dt { border-top:1px solid #ddd; padding-top:.4rem; }
+.canvas dd { margin-bottom:.5rem; }
+.badge { color:#a91422; font-weight:700; font-size:.75rem; letter-spacing:.08em; }
+#toc { max-width:1100px; margin:1rem auto 0; padding:0 2.5rem; }
+#toc ol { columns:2; font-size:.9rem; }
+.presentation #document-content { max-width:1250px; padding:0 2.5rem; }
+.presentation #document-content > section { min-height:660px; padding:2.5rem 0; margin:0; }
+.presentation.enhanced #document-content > section:not(.active) { display:none; }
+.presentation [data-role=diagram-render] svg { max-height:370px; }
+.presentation figure { margin:.7rem 0; }
+.print-warning { display:none; }
+@media(max-width:700px) { #document-content,.presentation #document-content { padding:1.2rem; } h1 { font-size:2rem; } h2 { font-size:1.4rem; } .canvas,.columns,dl { grid-template-columns:1fr; } .toolbar { padding:.5rem; } #toc ol { columns:1; } table { font-size:.78em; } th,td { padding:.35rem; } }
+@media print {
+  body { font-size:10pt; line-height:1.35; }
+  .toolbar,#toc,.no-print { display:none!important; }
+  #document-content,.presentation #document-content { max-width:none; padding:0; margin:0; }
+  h1 { font-size:23pt; } h2 { font-size:17pt; } h3 { font-size:12pt; }
+  section { margin:6mm 0; }
+  h1,h2,h3,caption { break-after:avoid; }
+  figure,tr { break-inside:avoid; }
+  thead { display:table-header-group; }
+  p { orphans:3; widows:3; }
+  table { font-size:9pt; }
+  [data-field=decision-status] { white-space:nowrap; }
+  th { background:transparent; }
+  .presentation #document-content > section,.presentation.enhanced #document-content > section:not(.active) { display:block!important; min-height:0; margin:0; padding:0; break-after:page; break-inside:avoid; }
+  .presentation #document-content > section:last-child { break-after:auto; }
+  .presentation { font-size:12pt; }
+  .presentation h2 { font-size:23pt; }
+  .presentation table { font-size:11pt; }
+  .presentation [data-role=diagram-render] svg { max-height:100mm; }
+  figure[data-render-state=ready] [data-role=diagram-source] { display:none; }
+  body:not([data-render-state=ready]) .print-warning { display:block; color:#a91422; font-weight:bold; }
+  a { color:inherit; }
+}
+
+@page { size: A4 portrait; margin: 14mm; }
+</style>
+<!-- CDN dependency: @plantuml/core 1.2026.8, MIT. Graphviz/Viz distribution retains its bundled notices.
+/* +=======================================================================
+ * |
+ * |      PlantUML : a free UML diagram generator
+ * |
+ * +=======================================================================
+ *
+ * (C) Copyright 2009-2024, Arnaud Roques
+ *
+ * Project Info:  https://plantuml.com
+ *
+ * If you like this project or if you find it useful, you can support us at:
+ *
+ * https://plantuml.com/patreon (only 1$ per month!)
+ * https://plantuml.com/liberapay (only 1€ per month!)
+ * https://plantuml.com/paypal
+ *
+ *
+ * PlantUML is free software; you can redistribute it and/or modify it
+ * under the terms of the MIT License.
+ *
+ * See http://opensource.org/licenses/MIT
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining
+ * a copy of this software and associated documentation files (the "Software"),
+ * to deal in the Software without restriction, including without limitation
+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ * and/or sell copies of the Software, and to permit persons to whom the
+ * Software is furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included
+ * in all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ * OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+ * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
+ * IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ * PlantUML can occasionally display sponsored or advertising messages. Those
+ * messages are usually generated on welcome or error images and never on
+ * functional diagrams.
+ * See https://plantuml.com/professional if you want to remove them
+ *
+ * Images (whatever their format : PNG, SVG, EPS...) generated by running PlantUML
+ * are owned by the author of their corresponding sources code (that is, their
+ * textual description in PlantUML language). Those images are not covered by
+ * this MIT license.
+ *
+ * The generated images can then be used without any reference to the MIT license.
+ * It is not even necessary to stipulate that they have been generated with PlantUML,
+ * although this will be appreciated by the PlantUML team.
+ *
+ * There is an exception : if the textual description in PlantUML language is also covered
+ * by any license, then the generated images are logically covered
+ * by the very same license.
+ *
+ * This is the IGY distribution (Install GraphViz by Yourself).
+ * You have to install GraphViz and to setup the GRAPHVIZ_DOT environment variable
+ * (see https://plantuml.com/graphviz-dot )
+ *
+ * Icons provided by OpenIconic :  https://useiconic.com/open
+ * Archimate sprites provided by Archi :  http://www.archimatetool.com
+ * Stdlib AWS provided by https://github.com/milo-minderbinder/AWS-PlantUML
+ * Stdlib Icons provided https://github.com/tupadr3/plantuml-icon-font-sprites
+ * ASCIIMathML (c) Peter Jipsen http://www.chapman.edu/~jipsen
+ * ASCIIMathML (c) David Lippman http://www.pierce.ctc.edu/dlippman
+ * CafeUndZopfli ported by Eugene Klyuchnikov https://github.com/eustas/CafeUndZopfli
+ * Brotli (c) by the Brotli Authors https://github.com/google/brotli
+ * Themes (c) by Brett Schwarz https://github.com/bschwarz/puml-themes
+ * Twemoji (c) by Twitter at https://twemoji.twitter.com/
+ *
+ */
+-->
+</head>
+<body class="specification" data-render-state="pending">
+<nav class="toolbar" aria-label="Document controls">
+<button id="print-document" type="button">Print / PDF</button>
+<span id="render-status" role="status" aria-live="polite">Loading local diagram renderer…</span>
+</nav>
+<nav id="toc" aria-label="Contents"><h2>Contents</h2><ol></ol></nav>
+<p class="print-warning">Diagrams are not ready. Return to the document and use Print / PDF after resolving diagram errors.</p>
+<noscript><p>JavaScript is disabled. Document text and diagram source remain available; enable JavaScript to render diagrams before printing.</p></noscript>
+<main>
+<article id="document-content" data-document-type="functional-spec">
+<header><h1>[Product] — Functional specification</h1><p>TEMPLATE / DRAFT — replace bracketed prompts and illustrative examples; no product decisions or approvals are recorded.</p><dl data-role="document-metadata"><dt>Owner</dt><dd data-field="owner">Business Analyst; PM review</dd><dt>Stage</dt><dd data-field="stage">Requirements</dd><dt>Version</dt><dd data-field="version">0.1-draft</dd><dt>Status</dt><dd data-field="status">Template — unapproved</dd><dt>Updated</dt><dd data-field="updated">[YYYY-MM-DD]</dd><dt>Upstream baseline</dt><dd data-field="baseline">[CEO brief reference]</dd></dl></header>
+<section id="purpose-scope" aria-labelledby="purpose-scope-title">
+<h2 id="purpose-scope-title">Purpose and scope</h2>
+<p id="goal-001" data-goal-id="GOAL-001"><strong>GOAL-001:</strong> [Business outcome and measurement].</p><dl><dt>In scope</dt><dd>[Capabilities]</dd><dt>Out of scope</dt><dd>[Exclusions]</dd><dt>Constraints / dependencies</dt><dd>[Known limits, external inputs and owners]</dd></dl>
+</section>
+<section id="actors-terms" aria-labelledby="actors-terms-title">
+<h2 id="actors-terms-title">Actors, permissions and terms</h2>
+<table><caption>Actors and terms</caption><thead><tr><th scope="col">Item</th><th scope="col">Meaning / permissions</th></tr></thead><tbody><tr><th scope="row">ACT-001 — [Actor]</th><td>[Allowed actions and restrictions]</td></tr><tr><th scope="row">[Key term]</th><td>[Unambiguous business definition]</td></tr></tbody></table><figure id="use-case-diagram"><figcaption>Illustrative use case — replace with agreed actors and capabilities</figcaption><p data-role="diagram-description">A user requests an outcome from the product. Add permissions and additional actors only when required.</p><script type="text/plain" data-role="diagram-source">
+@startuml
+actor User
+rectangle Product {
+usecase "Request outcome" as UC1
+}
+User --> UC1
+@enduml
+</script><div data-role="diagram-render"></div></figure>
+</section>
+<section id="functional-requirements" aria-labelledby="functional-requirements-title">
+<h2 id="functional-requirements-title">Functional requirements</h2>
+<section id="fr-001" data-requirement-id="FR-001" data-requirement-type="functional" data-priority="TBD" data-status="proposed"><h3>FR-001 — [Required behavior]</h3><dl><dt>Priority / status</dt><dd>[Must / Should / Could] — proposed</dd><dt>Actor / trigger</dt><dd>ACT-001 — [Event and preconditions]</dd><dt>Main behavior</dt><dd>[Observable outcome]</dd><dt>Business rule BR-001</dt><dd>[Validation and invariant]</dd><dt>Alternate / error / edge paths</dt><dd>[Empty input, denied access, duplicate request or relevant boundary]</dd><dt>Acceptance AC-001</dt><dd data-acceptance-id="AC-001">Given [state], when [action], then [measurable result].</dd></dl></section>
+</section>
+<section id="data-interfaces" aria-labelledby="data-interfaces-title">
+<h2 id="data-interfaces-title">Data and external interfaces</h2>
+<table><caption>Requirements-level data and exchanges</caption><thead><tr><th scope="col">ID</th><th scope="col">Need</th><th scope="col">Validation / lifecycle</th></tr></thead><tbody><tr><th scope="row">DATA-001</th><td>[Entity, purpose, ownership and sensitivity]</td><td>[Required fields, retention, deletion and access rules]</td></tr><tr><th scope="row">EXT-001</th><td>[External party, input/output and expected behavior, or N/A]</td><td>[Validation, failure expectation and dependency owner]</td></tr></tbody></table><p>Keep technology choices for solution design; distinguish required behavior from a proposed solution.</p>
+</section>
+<section id="non-functional" aria-labelledby="non-functional-title">
+<h2 id="non-functional-title">Non-functional requirements</h2>
+<table><caption>Targets — replace TBDs with agreed measurable criteria</caption><thead><tr><th scope="col">ID / category</th><th scope="col">Target and verification</th><th scope="col">Decision owner</th></tr></thead><tbody><tr id="nfr-001" data-requirement-id="NFR-001" data-requirement-type="non-functional" data-status="proposed"><th scope="row">NFR-001 — Performance / capacity</th><td>[Workload, percentile, response target and test; TBD]</td><td>[Owner]</td></tr><tr id="nfr-002" data-requirement-id="NFR-002" data-requirement-type="non-functional" data-status="proposed"><th scope="row">NFR-002 — Security / privacy</th><td>[Access/privacy controls and verification; TBD]</td><td>[Owner]</td></tr><tr id="nfr-003" data-requirement-id="NFR-003" data-requirement-type="non-functional" data-status="proposed"><th scope="row">NFR-003 — Accessibility / usability</th><td>[Conformance and task-success target; TBD]</td><td>[Owner]</td></tr><tr id="nfr-004" data-requirement-id="NFR-004" data-requirement-type="non-functional" data-status="proposed"><th scope="row">NFR-004 — Reliability / recovery</th><td>[Availability, recovery and data-loss targets; TBD]</td><td>[Owner]</td></tr><tr id="nfr-005" data-requirement-id="NFR-005" data-requirement-type="non-functional" data-status="proposed"><th scope="row">NFR-005 — Compatibility / maintainability</th><td>[Supported clients, supportability and checks; TBD]</td><td>[Owner]</td></tr><tr id="nfr-006" data-requirement-id="NFR-006" data-requirement-type="non-functional" data-status="proposed"><th scope="row">NFR-006 — Operations</th><td>[Required packaging/runtime constraints and operational checks; TBD]</td><td>[Owner]</td></tr></tbody></table><p id="nfr-integration">When applicable: delivered frontend origins must work; valid cookie/refresh-token sessions survive refresh. Mark irrelevant categories N/A with rationale. Deployment eligibility follows the deployment playbook; Architect selects the path.</p>
+</section>
+<section id="assumptions-unknowns" aria-labelledby="assumptions-unknowns-title">
+<h2 id="assumptions-unknowns-title">Assumptions and unknown details</h2>
+<table><caption>Assumptions and unknown details</caption><thead><tr><th scope="col">ID</th><th scope="col">Question / proposed assumption</th><th scope="col">Affected item</th><th scope="col">Impact if unresolved</th><th scope="col">Decision owner</th><th scope="col">Status / answer</th></tr></thead><tbody><tr><th scope="row">Q-001</th><td>[Decision-focused question]</td><td>[FR / design ID]</td><td>[Dependent work blocked]</td><td>[Owner via PM]</td><td>Unresolved — no answer recorded</td></tr><tr><th scope="row">A-001</th><td>[Proposed assumption]</td><td>[Affected requirement / design]</td><td>[Consequence if false]</td><td>[Confirming owner]</td><td>Unconfirmed — not a decision</td></tr></tbody></table><p><strong>Risk:</strong> [Impact, mitigation and owner]. Ask clarification through PM; continue only work independent of material unknowns.</p>
+</section>
+<section id="traceability" aria-labelledby="traceability-title">
+<h2 id="traceability-title">Traceability and review</h2>
+<table><caption>Requirement coverage</caption><thead><tr><th scope="col">Goal / use case</th><th scope="col">Requirement</th><th scope="col">Acceptance / verification</th></tr></thead><tbody><tr><th scope="row">GOAL-001 / [UC ID]</th><td>FR-001</td><td>AC-001</td></tr><tr><th scope="row">GOAL-001</th><td>NFR-001…006</td><td>[Named checks and evidence location]</td></tr></tbody></table><p>Review with the matching CEO presentation. CEO requirements approval evidence and exact artifact identities belong in the PM approval record; this draft does not grant approval.</p>
+</section>
+</article>
+</main>
+<script>
+/* Shared enhancement only: all authoritative prose and PlantUML already exist in HTML. */
+(() => {
+  'use strict';
+  const article = document.getElementById('document-content');
+  const sections = [...article.children].filter(el => el.tagName === 'SECTION');
+  const status = document.getElementById('render-status');
+  const figures = [...article.querySelectorAll('figure')].filter(el => el.querySelector('[data-role="diagram-source"]'));
+  const cdn = 'https://cdn.jsdelivr.net/npm/@plantuml/core@1.2026.8/';
+  let index = 0;
+  const isDeck = document.body.classList.contains('presentation');
+  function show(next) {
+    index = Math.max(0, Math.min(sections.length - 1, next));
+    sections.forEach((section, i) => section.classList.toggle('active', i === index));
+    document.getElementById('slide-count').textContent = `${index + 1} / ${sections.length}`;
+    document.getElementById('previous').disabled = index === 0;
+    document.getElementById('next').disabled = index === sections.length - 1;
+  }
+  if (isDeck) {
+    document.body.classList.add('enhanced');
+    show(0);
+    document.getElementById('previous').onclick = () => show(index - 1);
+    document.getElementById('next').onclick = () => show(index + 1);
+    document.addEventListener('keydown', event => {
+      if (event.altKey || event.ctrlKey || event.metaKey || /INPUT|TEXTAREA|SELECT|BUTTON/.test(event.target.tagName) || event.target.isContentEditable) return;
+      if (event.key === 'ArrowRight' || event.key === 'PageDown') { event.preventDefault(); show(index + 1); }
+      if (event.key === 'ArrowLeft' || event.key === 'PageUp') { event.preventDefault(); show(index - 1); }
+      if (event.key === 'Home') show(0);
+      if (event.key === 'End') show(sections.length - 1);
+    });
+    document.addEventListener('click', event => {
+      const link = event.target.closest('a[href^="#"]');
+      if (!link) return;
+      const target = document.getElementById(link.getAttribute('href').slice(1));
+      const slide = sections.findIndex(section => section.contains(target));
+      if (slide >= 0) show(slide);
+    });
+  } else {
+    const list = document.querySelector('#toc ol');
+    sections.forEach(section => {
+      const heading = section.querySelector('h2');
+      if (!heading || !section.id) return;
+      const li = document.createElement('li');
+      const link = document.createElement('a');
+      link.href = '#' + section.id;
+      link.textContent = heading.textContent;
+      li.append(link); list.append(li);
+    });
+  }
+  function timeout(promise, milliseconds, message) {
+    let timer;
+    return Promise.race([promise, new Promise((_, reject) => { timer = setTimeout(() => reject(new Error(message)), milliseconds); })]).finally(() => clearTimeout(timer));
+  }
+  function loadClassic(url) {
+    return new Promise((resolve, reject) => {
+      const script = document.createElement('script');
+      script.src = url;
+      script.onload = resolve;
+      script.onerror = () => reject(new Error('CDN JavaScript could not load. Connect to the internet and reload.'));
+      document.head.append(script);
+    });
+  }
+  function fail(figure, message) {
+    figure.dataset.renderState = 'failed';
+    figure.querySelector('[data-role="diagram-render"]').textContent = 'Diagram unavailable: ' + message + ' Editable source is shown below.';
+  }
+  // Prevent remote source includes/assets and preserve the standalone-file contract.
+  function checkSource(source) {
+    if (/!include|!import|!theme|%load_json|%load_yaml|%getenv|<img\b|https?:\/\//i.test(source)) {
+      throw new Error('Keep diagrams self-contained: external includes, themes, and images are unsupported.');
+    }
+  }
+  function safeSvg(text) {
+    const parsed = new DOMParser().parseFromString(text, 'image/svg+xml');
+    if (parsed.querySelector('parsererror') || parsed.documentElement.localName !== 'svg') throw new Error('Renderer did not return valid SVG.');
+    const svg = parsed.documentElement;
+    if (/Syntax Error|An error has occurr?ed/i.test(svg.textContent)) throw new Error('PlantUML syntax error; review the source.');
+    svg.querySelectorAll('script,foreignObject').forEach(node => node.remove());
+    [svg, ...svg.querySelectorAll('*')].forEach(node => {
+      [...node.attributes].forEach(attr => {
+        if (/^on/i.test(attr.name) || ((attr.localName === 'href' || attr.name === 'src') && !attr.value.startsWith('#')) || /url\(\s*["']?(?:https?:|\/\/)/i.test(attr.value)) node.removeAttribute(attr.name);
+      });
+    });
+    svg.setAttribute('role', 'img');
+    return document.importNode(svg, true);
+  }
+  figures.forEach(figure => { figure.dataset.renderState = 'pending'; });
+  window.documentReady = (async () => {
+    try {
+      if (figures.length) {
+        await timeout(loadClassic(cdn + 'viz-global.js'), 45000, 'Diagram library download timed out; reload to retry.');
+        const { renderToString } = await timeout(import(cdn + 'plantuml.js'), 45000, 'Diagram library download timed out; reload to retry.');
+        // The TeaVM engine has shared state: serialize every callback-based render.
+        for (const figure of figures) {
+          const source = figure.querySelector('[data-role="diagram-source"]').textContent.trim();
+          try {
+            checkSource(source);
+            const svgText = await timeout(new Promise((resolve, reject) => renderToString(source.split(/\r?\n/), resolve, message => reject(new Error(String(message))))), 45000, 'Diagram rendering timed out; reload to retry.');
+            const svg = safeSvg(svgText);
+            const caption = figure.querySelector('figcaption');
+            if (caption) svg.setAttribute('aria-label', caption.textContent);
+            figure.querySelector('[data-role="diagram-render"]').replaceChildren(svg);
+            figure.dataset.renderState = 'ready';
+          } catch (error) {
+            fail(figure, error.message);
+            // A timed-out worker may still finish: never start a concurrent render.
+            if (/timed out/.test(error.message)) throw error;
+          }
+        }
+      }
+    } catch (error) {
+      figures.filter(figure => figure.dataset.renderState === 'pending').forEach(figure => fail(figure, error.message));
+    }
+    const failures = figures.filter(figure => figure.dataset.renderState !== 'ready').length;
+    document.body.dataset.renderState = failures ? 'failed' : 'ready';
+    status.textContent = failures ? `${failures} diagram(s) unavailable. Source remains readable. Resolve errors and reload before Print / PDF.` : `Ready · ${figures.length} diagram(s) rendered locally`;
+    return { ready: !failures, diagrams: figures.length, failures };
+  })();
+  document.getElementById('print-document').onclick = async () => {
+    const button = document.getElementById('print-document');
+    button.disabled = true;
+    const result = await window.documentReady;
+    button.disabled = false;
+    if (!result.ready) { status.textContent = 'Print paused: resolve the diagram errors and reload first. Source remains available below.'; return; }
+    await document.fonts.ready;
+    window.print();
+  };
+})();
+
+</script>
+</body>
+</html>

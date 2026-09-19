@@ -1,0 +1,44 @@
+<article id="document-content" data-document-type="ceo-presentation">
+
+<section id="recommendation" aria-labelledby="recommendation-title">
+<header><h1>[Product] — Requirements presentation</h1><p>TEMPLATE / DRAFT — replace bracketed prompts and illustrative examples; no product decisions or approvals are recorded.</p><dl data-role="document-metadata"><dt>Owner</dt><dd data-field="owner">Business Analyst; PM review</dd><dt>Stage</dt><dd data-field="stage">Requirements</dd><dt>Version</dt><dd data-field="version">0.1-draft</dd><dt>Status</dt><dd data-field="status">Template — unapproved</dd><dt>Updated</dt><dd data-field="updated">[YYYY-MM-DD]</dd><dt>Upstream baseline</dt><dd data-field="baseline">[CEO brief reference]</dd></dl></header><svg data-role="slide-icon" aria-hidden="true" width="28" height="28" viewBox="0 0 28 28"><path d="M5 22V6h18M9 18l5-5 4 2 5-7" fill="none" stroke="currentColor" stroke-width="2"/></svg><h2 id="recommendation-title">Agree the objective and scope</h2>
+<p data-role="subtitle">[One sentence explaining the business outcome.]</p>
+<p><strong>Recommendation:</strong> [Proposed direction and business rationale].</p><p><strong>Decision requested:</strong> [Approve scope / request changes / clarify an open decision].</p>
+</section>
+<section id="business-canvas" aria-labelledby="business-canvas-title">
+<svg data-role="slide-icon" aria-hidden="true" width="28" height="28" viewBox="0 0 28 28"><path d="M5 22V6h18M9 18l5-5 4 2 5-7" fill="none" stroke="currentColor" stroke-width="2"/></svg><h2 id="business-canvas-title">A focused problem and value proposition</h2>
+<p data-role="subtitle">[Explain why this problem is worth solving.]</p>
+<table><caption>Lean Canvas — hypotheses until supported</caption><thead><tr><th scope="col">Dimension</th><th scope="col">Proposal / evidence</th></tr></thead><tbody><tr><th scope="row">Problem &amp; current alternative</th><td>[Pain and present workaround]</td></tr><tr><th scope="row">Users &amp; early adopters</th><td>[Beneficiaries and primary segment]</td></tr><tr><th scope="row">Value &amp; solution</th><td>[Outcome, differentiator, top capabilities]</td></tr><tr><th scope="row">Channels &amp; advantage</th><td>[Adoption route and defensible benefit, or unknown]</td></tr><tr><th scope="row">Costs &amp; value capture</th><td>[Cost drivers; revenue or internal value — no invented figures]</td></tr><tr><th scope="row">Key metrics</th><td>[Outcome measure and evidence source]</td></tr></tbody></table>
+</section>
+<section id="user-journey" aria-labelledby="user-journey-title">
+<svg data-role="slide-icon" aria-hidden="true" width="28" height="28" viewBox="0 0 28 28"><path d="M5 22V6h18M9 18l5-5 4 2 5-7" fill="none" stroke="currentColor" stroke-width="2"/></svg><h2 id="user-journey-title">Show the shortest useful journey</h2>
+<p data-role="subtitle">[Describe the main user outcome; diagram is illustrative.]</p>
+<figure id="journey-diagram"><figcaption>Illustrative journey — replace with the agreed flow</figcaption><p data-role="diagram-description">An actor requests a result; the product validates the request and returns a result or a clear error.</p><script type="text/plain" data-role="diagram-source">
+@startuml
+actor User
+participant Product
+User -> Product: Request outcome
+alt Valid request
+Product --> User: Outcome
+else Invalid request
+Product --> User: Explain correction
+end
+@enduml
+</script><div data-role="diagram-render"></div></figure>
+</section>
+<section id="scope-success" aria-labelledby="scope-success-title">
+<svg data-role="slide-icon" aria-hidden="true" width="28" height="28" viewBox="0 0 28 28"><path d="M5 22V6h18M9 18l5-5 4 2 5-7" fill="none" stroke="currentColor" stroke-width="2"/></svg><h2 id="scope-success-title">Keep the first release measurable</h2>
+<p data-role="subtitle">[Connect priorities to measurable business value.]</p>
+<table><caption>MVP boundary and success</caption><thead><tr><th scope="col">Area</th><th scope="col">Proposed definition</th></tr></thead><tbody><tr><th scope="row">Must have</th><td>[FR IDs and smallest usable scope]</td></tr><tr><th scope="row">Later / out of scope</th><td>[Explicit exclusions]</td></tr><tr><th scope="row">Success measure</th><td>[Metric, baseline, target and measurement date; TBD owner]</td></tr><tr><th scope="row">Acceptance</th><td>[Observable outcome and acceptance owner]</td></tr></tbody></table>
+</section>
+<section id="delivery-risk" aria-labelledby="delivery-risk-title">
+<svg data-role="slide-icon" aria-hidden="true" width="28" height="28" viewBox="0 0 28 28"><path d="M5 22V6h18M9 18l5-5 4 2 5-7" fill="none" stroke="currentColor" stroke-width="2"/></svg><h2 id="delivery-risk-title">Expose delivery dependencies early</h2>
+<p data-role="subtitle">[Give only assumptions-backed estimates and material risks.]</p>
+<table><caption>Delivery outline and trade-offs</caption><thead><tr><th scope="col">Phase / issue</th><th scope="col">Plan or consequence</th><th scope="col">Owner</th></tr></thead><tbody><tr><th scope="row">Delivery outline</th><td>[Requirements → design → build → QA; estimate basis or TBD]</td><td>PM</td></tr><tr><th scope="row">Dependency</th><td>[External input and needed-by point]</td><td>[Owner]</td></tr><tr><th scope="row">Material risk</th><td>[Likelihood/impact and mitigation]</td><td>[Owner]</td></tr><tr><th scope="row">Trade-off</th><td>[Options and recommendation]</td><td>PM → CEO</td></tr></tbody></table>
+</section>
+<section id="requested-decisions" aria-labelledby="requested-decisions-title">
+<svg data-role="slide-icon" aria-hidden="true" width="28" height="28" viewBox="0 0 28 28"><path d="M5 22V6h18M9 18l5-5 4 2 5-7" fill="none" stroke="currentColor" stroke-width="2"/></svg><h2 id="requested-decisions-title">Confirm the requirements package</h2>
+<p data-role="subtitle">[Name the decision, recommended answer and next step.]</p>
+<p><strong>Requested decision:</strong> [Scope and priority decision].</p><p><strong>Open item:</strong> Q-001 — [Question, owner and blocked work]. See the matching functional specification.</p><p><strong>Next handoff:</strong> PM records CEO approval of both planning documents before architecture begins.</p>
+</section>
+</article>

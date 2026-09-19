@@ -1,0 +1,57 @@
+<article id="document-content" data-document-type="ceo-tech-presentation">
+
+<section id="design-recommendation" aria-labelledby="design-recommendation-title">
+<header><h1>[Product] — Technical design presentation</h1><p>TEMPLATE / DRAFT — replace bracketed prompts and illustrative examples; no product decisions or approvals are recorded.</p><dl data-role="document-metadata"><dt>Owner</dt><dd data-field="owner">Solution Architect; PM review</dd><dt>Stage</dt><dd data-field="stage">Architecture</dd><dt>Version</dt><dd data-field="version">0.1-draft</dd><dt>Status</dt><dd data-field="status">Template — unapproved</dd><dt>Updated</dt><dd data-field="updated">[YYYY-MM-DD]</dd><dt>Upstream baseline</dt><dd data-field="baseline">[Approved planning versions and approval record]</dd></dl></header><svg data-role="slide-icon" aria-hidden="true" width="28" height="28" viewBox="0 0 28 28"><path d="M5 22V6h18M9 18l5-5 4 2 5-7" fill="none" stroke="currentColor" stroke-width="2"/></svg><h2 id="design-recommendation-title">Choose a design that meets the constraints</h2>
+<p data-role="subtitle">[State the principal technical decision.]</p>
+<p><strong>Recommended direction:</strong> [High-level design and why it fits].</p><p><strong>Drivers:</strong> [Approved FR/NFR IDs, constraints and accepted open items].</p>
+</section>
+<section id="system-context" aria-labelledby="system-context-title">
+<svg data-role="slide-icon" aria-hidden="true" width="28" height="28" viewBox="0 0 28 28"><path d="M5 22V6h18M9 18l5-5 4 2 5-7" fill="none" stroke="currentColor" stroke-width="2"/></svg><h2 id="system-context-title">Make boundaries and responsibilities clear</h2>
+<p data-role="subtitle">[Show the system boundary and key dependencies.]</p>
+<figure id="architecture-diagram"><figcaption>Illustrative architecture — not a technology decision</figcaption><p data-role="diagram-description">A user interacts with a product boundary containing an interface and processing component. Components are logical; this does not imply a backend.</p><script type="text/plain" data-role="diagram-source">
+@startuml
+actor User
+rectangle Product {
+component Interface
+component Processing
+}
+User --> Interface
+Interface --> Processing
+@enduml
+</script><div data-role="diagram-render"></div></figure>
+</section>
+<section id="key-interaction" aria-labelledby="key-interaction-title">
+<svg data-role="slide-icon" aria-hidden="true" width="28" height="28" viewBox="0 0 28 28"><path d="M5 22V6h18M9 18l5-5 4 2 5-7" fill="none" stroke="currentColor" stroke-width="2"/></svg><h2 id="key-interaction-title">Validate the critical interaction</h2>
+<p data-role="subtitle">[Explain the important data flow and failure behavior.]</p>
+<figure id="sequence-diagram"><figcaption>Illustrative interaction — replace with agreed behavior</figcaption><p data-role="diagram-description">The interface requests a result from a logical processing component, which returns a result or a validation error.</p><script type="text/plain" data-role="diagram-source">
+@startuml
+actor User
+participant Interface
+participant Processing
+User -> Interface: Request outcome
+Interface -> Processing: Validate and process
+alt Accepted
+Processing --> Interface: Result
+else Rejected
+Processing --> Interface: Validation error
+end
+Interface --> User: Show outcome
+@enduml
+</script><div data-role="diagram-render"></div></figure>
+</section>
+<section id="deployment-quality" aria-labelledby="deployment-quality-title">
+<svg data-role="slide-icon" aria-hidden="true" width="28" height="28" viewBox="0 0 28 28"><path d="M5 22V6h18M9 18l5-5 4 2 5-7" fill="none" stroke="currentColor" stroke-width="2"/></svg><h2 id="deployment-quality-title">Select the operating model</h2>
+<p data-role="subtitle">[Show only choices that affect risk, cost or delivery.]</p>
+<table><caption>Deployment and quality decisions</caption><thead><tr><th scope="col">Concern</th><th scope="col">Proposed choice and rationale</th></tr></thead><tbody><tr><th scope="row">Deployment</th><td>[Workers static assets OR Docker application through Cloudflare Tunnel; choose from requirements]</td></tr><tr><th scope="row">Security / trust</th><td>[Key boundary, access approach and sensitive data]</td></tr><tr><th scope="row">Reliability / scale</th><td>[Recovery and capacity approach; material limits]</td></tr><tr><th scope="row">Operations</th><td>[Runtime owner, availability dependencies and rollback approach]</td></tr></tbody></table>
+</section>
+<section id="alternatives-risks" aria-labelledby="alternatives-risks-title">
+<svg data-role="slide-icon" aria-hidden="true" width="28" height="28" viewBox="0 0 28 28"><path d="M5 22V6h18M9 18l5-5 4 2 5-7" fill="none" stroke="currentColor" stroke-width="2"/></svg><h2 id="alternatives-risks-title">Make material trade-offs explicit</h2>
+<p data-role="subtitle">[Explain why the preferred design is appropriate.]</p>
+<table><caption>Decision-level options</caption><thead><tr><th scope="col">Issue</th><th scope="col">Recommendation / alternative</th><th scope="col">Consequence</th></tr></thead><tbody><tr><th scope="row">[Material choice]</th><td>[Recommended option vs viable alternative]</td><td>[Cost, complexity, reliability or delivery impact]</td></tr><tr><th scope="row">Q-001 / A-001</th><td>[Unresolved question or assumption]</td><td>[Owner and approval impact]</td></tr></tbody></table>
+</section>
+<section id="design-decision" aria-labelledby="design-decision-title">
+<svg data-role="slide-icon" aria-hidden="true" width="28" height="28" viewBox="0 0 28 28"><path d="M5 22V6h18M9 18l5-5 4 2 5-7" fill="none" stroke="currentColor" stroke-width="2"/></svg><h2 id="design-decision-title">Request CEO agreement on the design</h2>
+<p data-role="subtitle">[Ask for a clear design decision; omit minor implementation detail.]</p>
+<p><strong>Approve:</strong> [Named architecture and deployment decisions].</p><p><strong>Conditions / unknowns:</strong> [Accepted items or decisions still needed].</p><p><strong>Supporting detail:</strong> Matching architecture technical specification.</p><p><strong>Next handoff:</strong> PM records CEO design approval before Tech Lead implementation planning.</p>
+</section>
+</article>

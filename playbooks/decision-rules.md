@@ -1,5 +1,7 @@
 # Decision Rules
 
+Record and verify gate decisions using `product-tracking.md` and `templates/approval-record-template.md`. STATUS.md links to decision evidence; it cannot grant approval. These rules define authority; the tracking playbook defines how decisions are preserved.
+
 ## Message routing and overall orchestration
 Owner: Product Manager by default
 The human user is CEO. Explicit CEO role or agent assignments take precedence for their stated scope. PM delegates and consolidates work without taking over specialist decision authority.
@@ -39,3 +41,14 @@ Follow `playbooks/deployment-rules.md` for the two deployment paths and first-ti
 
 ## Final release and priority decisions
 Owner: CEO
+
+## Escalation Triggers
+
+PM brings the following to the CEO with the relevant role's recommendation:
+
+- Material scope changes or conflicting requirements needing a business decision.
+- Architecture choices that introduce significant cost or complexity.
+- Conflicts between speed, quality, scope, and cost that exceed a role's authority.
+- High release risk or a delivery timeline that cannot be met.
+
+State the impact, options, recommendation, and work affected. Continue independent authorized work while the decision is pending; do not silently resolve a CEO trade-off inside implementation.

@@ -12,8 +12,7 @@ PM coordinates the overall work; the Tech Lead retains engineering execution own
 
 ## Rule 1: Follow the chain
 
-Preferred flow:
-CEO → PM → BA → PM → CEO approval → PM → Architect → PM → CEO design approval → PM → Tech Lead → Developers → QA → DevOps → PM → CEO
+Follow the phase sequence and entry gates in `delivery-lifecycle.md`. PM coordinates role handoffs and reports consolidated results to the CEO.
 
 ## Rule 2: Do not skip role boundaries
 
@@ -21,7 +20,7 @@ Each role should stay within scope unless escalation is necessary.
 
 ## Rule 3: Use structured outputs
 
-Each role should produce concise, labeled deliverables. Follow `playbooks/document-standards.md`: PM assigns CEO requirements to BA, BA prepares the two required HTML documents, and PM reviews them before submission to the CEO; handoff of the approved HTML files to the Architect happens only after CEO approval of both. BA and Architect may ask clarification questions through PM and record assumptions/unknown details in their respective specifications.
+Use `templates/handoff-template.md` for role handoffs, `document-standards.md` for deliverables and clarifications, and `product-tracking.md` for current state and approval evidence.
 
 ## Rule 4: Raise uncertainty early
 
@@ -38,3 +37,28 @@ QA is allowed to challenge PM wording, architecture assumptions, developer logic
 ## Rule 7: CEO resolves trade-offs
 
 When speed, quality, scope, or cost conflict, escalate to the CEO.
+
+## Role-Based Delegation
+
+Inspect the product's STATUS.md, applicable approval records, and current artifacts before assigning specialist work. Choose the smallest useful role set for the authorized phase; do not start downstream work across a pending approval gate.
+
+For a broad end-to-end product request, plan coverage of PM, BA, Solution Architect, Tech Lead, Frontend and Backend Developers as applicable, QA, and DevOps. A smaller phase assignment does not silently remove the remaining roles from the delivery plan. Review the role contracts when mapping responsibilities and make any genuinely inapplicable roles explicit, such as backend work for a static product.
+
+Assign exactly one primary role per sub-agent, using its `roles/` file as the operating contract. Provide the product path (or identify company-template work), relevant company/playbook context, required inputs and versions, bounded objective, expected outputs and storage locations, boundaries, decision owner, and next handoff target. Avoid overlapping file ownership unless intentional.
+
+Delegate independent work concurrently when useful and sequence dependent handoffs. Work within available agent limits, staging remaining roles after earlier assignments finish. Collect all relevant handoffs, resolve inconsistencies, and continue through the authorized work rather than stopping after the first response. A pending CEO gate permits independent preparation, not dependent phase execution.
+
+Agent limits are not a reason to omit required role coverage. Reuse completed agents for their assigned role or release completed slots where supported, then continue with remaining assignments. If the CEO explicitly requests partial results, provide them and clearly identify outstanding work; otherwise synthesize all relevant completed handoffs.
+
+PM consolidates outcomes, prioritized next actions, owners, handoff targets, blockers, and decisions needed; update the single product status file per `product-tracking.md`. Handle known-context answers and routine coordination directly. An explicit orchestration request requires doing the authorized work, not merely describing how agents could do it.
+
+## PM Orchestration Summary
+
+For coordinated work, give the CEO a concise synthesis containing:
+
+- Current delivery phase and role-to-agent assignment map.
+- Outcomes and highest-severity findings or gaps first.
+- Prioritized actions, their responsible owners, and the explicit next handoff target.
+- Unresolved decisions, blockers, and any remaining role coverage.
+
+Use an actionable Tech Lead-style work plan when engineering execution is next. Scale the summary to the task; a routine known-context answer does not need a full orchestration report.

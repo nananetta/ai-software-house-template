@@ -1,0 +1,39 @@
+<article id="document-content" data-document-type="functional-spec">
+<header><h1>[Product] — Functional specification</h1><p>TEMPLATE / DRAFT — replace bracketed prompts and illustrative examples; no product decisions or approvals are recorded.</p><dl data-role="document-metadata"><dt>Owner</dt><dd data-field="owner">Business Analyst; PM review</dd><dt>Stage</dt><dd data-field="stage">Requirements</dd><dt>Version</dt><dd data-field="version">0.1-draft</dd><dt>Status</dt><dd data-field="status">Template — unapproved</dd><dt>Updated</dt><dd data-field="updated">[YYYY-MM-DD]</dd><dt>Upstream baseline</dt><dd data-field="baseline">[CEO brief reference]</dd></dl></header>
+<section id="purpose-scope" aria-labelledby="purpose-scope-title">
+<h2 id="purpose-scope-title">Purpose and scope</h2>
+<p id="goal-001" data-goal-id="GOAL-001"><strong>GOAL-001:</strong> [Business outcome and measurement].</p><dl><dt>In scope</dt><dd>[Capabilities]</dd><dt>Out of scope</dt><dd>[Exclusions]</dd><dt>Constraints / dependencies</dt><dd>[Known limits, external inputs and owners]</dd></dl>
+</section>
+<section id="actors-terms" aria-labelledby="actors-terms-title">
+<h2 id="actors-terms-title">Actors, permissions and terms</h2>
+<table><caption>Actors and terms</caption><thead><tr><th scope="col">Item</th><th scope="col">Meaning / permissions</th></tr></thead><tbody><tr><th scope="row">ACT-001 — [Actor]</th><td>[Allowed actions and restrictions]</td></tr><tr><th scope="row">[Key term]</th><td>[Unambiguous business definition]</td></tr></tbody></table><figure id="use-case-diagram"><figcaption>Illustrative use case — replace with agreed actors and capabilities</figcaption><p data-role="diagram-description">A user requests an outcome from the product. Add permissions and additional actors only when required.</p><script type="text/plain" data-role="diagram-source">
+@startuml
+actor User
+rectangle Product {
+usecase "Request outcome" as UC1
+}
+User --> UC1
+@enduml
+</script><div data-role="diagram-render"></div></figure>
+</section>
+<section id="functional-requirements" aria-labelledby="functional-requirements-title">
+<h2 id="functional-requirements-title">Functional requirements</h2>
+<section id="fr-001" data-requirement-id="FR-001" data-requirement-type="functional" data-priority="TBD" data-status="proposed"><h3>FR-001 — [Required behavior]</h3><dl><dt>Priority / status</dt><dd>[Must / Should / Could] — proposed</dd><dt>Actor / trigger</dt><dd>ACT-001 — [Event and preconditions]</dd><dt>Main behavior</dt><dd>[Observable outcome]</dd><dt>Business rule BR-001</dt><dd>[Validation and invariant]</dd><dt>Alternate / error / edge paths</dt><dd>[Empty input, denied access, duplicate request or relevant boundary]</dd><dt>Acceptance AC-001</dt><dd data-acceptance-id="AC-001">Given [state], when [action], then [measurable result].</dd></dl></section>
+</section>
+<section id="data-interfaces" aria-labelledby="data-interfaces-title">
+<h2 id="data-interfaces-title">Data and external interfaces</h2>
+<table><caption>Requirements-level data and exchanges</caption><thead><tr><th scope="col">ID</th><th scope="col">Need</th><th scope="col">Validation / lifecycle</th></tr></thead><tbody><tr><th scope="row">DATA-001</th><td>[Entity, purpose, ownership and sensitivity]</td><td>[Required fields, retention, deletion and access rules]</td></tr><tr><th scope="row">EXT-001</th><td>[External party, input/output and expected behavior, or N/A]</td><td>[Validation, failure expectation and dependency owner]</td></tr></tbody></table><p>Keep technology choices for solution design; distinguish required behavior from a proposed solution.</p>
+</section>
+<section id="non-functional" aria-labelledby="non-functional-title">
+<h2 id="non-functional-title">Non-functional requirements</h2>
+<table><caption>Targets — replace TBDs with agreed measurable criteria</caption><thead><tr><th scope="col">ID / category</th><th scope="col">Target and verification</th><th scope="col">Decision owner</th></tr></thead><tbody><tr id="nfr-001" data-requirement-id="NFR-001" data-requirement-type="non-functional" data-status="proposed"><th scope="row">NFR-001 — Performance / capacity</th><td>[Workload, percentile, response target and test; TBD]</td><td>[Owner]</td></tr><tr id="nfr-002" data-requirement-id="NFR-002" data-requirement-type="non-functional" data-status="proposed"><th scope="row">NFR-002 — Security / privacy</th><td>[Access/privacy controls and verification; TBD]</td><td>[Owner]</td></tr><tr id="nfr-003" data-requirement-id="NFR-003" data-requirement-type="non-functional" data-status="proposed"><th scope="row">NFR-003 — Accessibility / usability</th><td>[Conformance and task-success target; TBD]</td><td>[Owner]</td></tr><tr id="nfr-004" data-requirement-id="NFR-004" data-requirement-type="non-functional" data-status="proposed"><th scope="row">NFR-004 — Reliability / recovery</th><td>[Availability, recovery and data-loss targets; TBD]</td><td>[Owner]</td></tr><tr id="nfr-005" data-requirement-id="NFR-005" data-requirement-type="non-functional" data-status="proposed"><th scope="row">NFR-005 — Compatibility / maintainability</th><td>[Supported clients, supportability and checks; TBD]</td><td>[Owner]</td></tr><tr id="nfr-006" data-requirement-id="NFR-006" data-requirement-type="non-functional" data-status="proposed"><th scope="row">NFR-006 — Operations</th><td>[Required packaging/runtime constraints and operational checks; TBD]</td><td>[Owner]</td></tr></tbody></table><p id="nfr-integration">When applicable: delivered frontend origins must work; valid cookie/refresh-token sessions survive refresh. Mark irrelevant categories N/A with rationale. Deployment eligibility follows the deployment playbook; Architect selects the path.</p>
+</section>
+<section id="assumptions-unknowns" aria-labelledby="assumptions-unknowns-title">
+<h2 id="assumptions-unknowns-title">Assumptions and unknown details</h2>
+<table><caption>Assumptions and unknown details</caption><thead><tr><th scope="col">ID</th><th scope="col">Question / proposed assumption</th><th scope="col">Affected item</th><th scope="col">Impact if unresolved</th><th scope="col">Decision owner</th><th scope="col">Status / answer</th></tr></thead><tbody><tr><th scope="row">Q-001</th><td>[Decision-focused question]</td><td>[FR / design ID]</td><td>[Dependent work blocked]</td><td>[Owner via PM]</td><td>Unresolved — no answer recorded</td></tr><tr><th scope="row">A-001</th><td>[Proposed assumption]</td><td>[Affected requirement / design]</td><td>[Consequence if false]</td><td>[Confirming owner]</td><td>Unconfirmed — not a decision</td></tr></tbody></table><p><strong>Risk:</strong> [Impact, mitigation and owner]. Ask clarification through PM; continue only work independent of material unknowns.</p>
+</section>
+<section id="traceability" aria-labelledby="traceability-title">
+<h2 id="traceability-title">Traceability and review</h2>
+<table><caption>Requirement coverage</caption><thead><tr><th scope="col">Goal / use case</th><th scope="col">Requirement</th><th scope="col">Acceptance / verification</th></tr></thead><tbody><tr><th scope="row">GOAL-001 / [UC ID]</th><td>FR-001</td><td>AC-001</td></tr><tr><th scope="row">GOAL-001</th><td>NFR-001…006</td><td>[Named checks and evidence location]</td></tr></tbody></table><p>Review with the matching CEO presentation. CEO requirements approval evidence and exact artifact identities belong in the PM approval record; this draft does not grant approval.</p>
+</section>
+</article>

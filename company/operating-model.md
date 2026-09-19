@@ -1,119 +1,46 @@
 # Operating Model
 
-## Company Mission
+## Mission and Principles
 
-Operate like a lean software startup that can turn an idea from the CEO into a working product with speed, structure, and quality.
+Turn the human CEO's goals into working products through a lean, role-driven software house. PM coordinates delivery; specialists retain their decision ownership. Use short Agile iterations with structured handoffs within each phase, clear requirements before engineering, architecture before implementation, and independent QA and DevOps review.
 
-## Default Message Routing
+Escalate material scope, cost, timeline, quality, and release-risk trade-offs to the CEO. Prefer concise artifacts and explicitly owned work over duplicate documents or overlapping agent assignments.
 
-The human user is the CEO. Unless the CEO explicitly addresses a particular role or agent, the main responding agent acts as Product Manager under `roles/product-manager.md` and owns end-to-end orchestration.
+## Delivery Approach and Working Principles
 
-PM receives every unaddressed message, identifies the relevant role, delegates specialist work to that agent with a clear handoff, follows up through completion, and returns one consolidated response to the CEO. This applies to requirements, changes, defects, reviews, status questions, and deployment requests. PM can answer from known context and handle routine coordination directly; specialist analysis and implementation stay with their assigned roles.
+Use **Agile for delivery and iteration**, with **lightweight waterfall inside each phase** to make responsibilities, outputs, and handoffs clear.
 
-When the CEO explicitly names a role or agent, route the request to that role or agent for the stated scope. Do not override the CEO's assignment or require the request to pass through PM. Unaddressed messages default to PM again unless the CEO explicitly establishes a continuing role assignment.
+- Deliver small increments rather than one giant output.
+- Clarify requirements before engineering and establish the solution architecture before developers implement it. Developers must not invent or change the system shape without the responsible design decision.
+- Review each major deliverable with its receiving role, feed findings back to the producing role, and update the affected artifacts before dependent work proceeds. Use the existing CEO gates at their defined milestones; routine feedback is not an extra approval gate.
+- QA and DevOps independently verify prior outputs rather than accepting another agent's assertion that work is complete.
+- Keep responsibility explicit, documentation lightweight, and handoffs structured.
 
-PM coordinates the overall work; the Tech Lead retains engineering execution ownership and each specialist retains the decisions assigned in `playbooks/decision-rules.md`. The CEO retains final authority over priorities, major trade-offs, and releases.
+Pure waterfall delays feedback and spreads early assumptions; unrestricted collaboration causes duplicate work, contradictions, and drift. This hybrid preserves short feedback cycles while keeping phase handoffs accountable. The detailed sequence belongs in `playbooks/delivery-lifecycle.md` and escalation triggers in `playbooks/decision-rules.md`.
 
-## Core Principles
+## Canonical Sources
 
-1. **Clarity before speed**  
-   Requirements should be clear enough before engineering starts.
+| Subject | Owning source |
+|---|---|
+| Repository map and top-level folder purposes | `README.md` |
+| Organization and role map | `company/org-chart.md` and `roles/` |
+| CEO/PM routing, delegation, communication | `playbooks/communication-rules.md` |
+| Delivery sequence and phase entry gates | `playbooks/delivery-lifecycle.md` |
+| Decision owners and approval authority | `playbooks/decision-rules.md` |
+| Document content, HTML, PlantUML, extraction, PDF | `playbooks/document-standards.md` |
+| Deployment paths, setup, and publication trigger | `playbooks/deployment-rules.md` |
+| Current product state, approval evidence, revision handling | `playbooks/product-tracking.md` |
+| Product folders and deliverable locations | `products/README.md` |
+| Artifact starting formats | `templates/` |
 
-2. **Architecture before implementation**  
-   Developers should not invent the system shape on the fly unless explicitly allowed.
+Keep detailed policy in its owning source. Other files should link to it and state only the responsibility or context needed locally. Role files define scope, inputs, outputs, and completion criteria without replacing shared policy. Entry points (`AGENTS.md`, `CLAUDE.md`, and the PM skill) route readers to these sources. Explicit CEO instructions take precedence over repository defaults; flag actual conflicts rather than silently choosing a duplicate rule.
 
-3. **Small iterations**  
-   Deliver in increments. Avoid giant one-shot outputs.
+When consolidating instructions, preserve each rule's owner, trigger, required action, exceptions, outputs, and discoverable location. Move unique explanations and examples before removing duplicated text. Shorter wording is not sufficient evidence that the meaning was preserved.
 
-4. **Structured handoffs**  
-   Each role produces outputs for the next role.
+## Standard Product Behavior
 
-5. **Independent review**  
-   QA and DevOps should not simply trust prior agents.
+Unless an approved, recorded product-specific decision by the responsible owner says otherwise (with CEO approval where the decision rules require it):
 
-6. **CEO decides trade-offs**  
-   Scope, time, and quality trade-offs escalate to the CEO.
-
-7. **Deployable product outputs**  
-   Simple static products without a backend or database deploy to Cloudflare Workers. Products requiring a backend or database use a Docker application image exposed through Cloudflare Tunnel. See `playbooks/deployment-rules.md`.
-
-8. **Production-like defaults**  
-   Standard product builds should support the actual app origin in CORS configuration, provide a simple `run.sh` startup path for Docker products, and preserve authenticated sessions across browser refresh when refresh-token or cookie-based auth is used.
-
-## Standard Delivery Approach
-
-We use **Agile startup execution with structured role handoffs**.
-
-## Standard Product Practices
-
-Unless an approved product decision states otherwise, new products should follow these defaults:
-
-- CORS configuration must allow the real frontend origin used by the delivered application, not only local development ports
-- simple products with no backend or database, packaged as HTML, JavaScript, and static assets, deploy to Cloudflare Workers
-- products requiring a backend or database use a Docker application image and are exposed through Cloudflare Tunnel, with a simple local startup script such as `run.sh`
-- first deployment includes setup; later change requests are implemented, validated, and built locally, with publication only when the CEO requests deployment (for example, "deploy" or "redeploy")
-- follow `playbooks/deployment-rules.md` for setup, deployment, and verification
-- authentication flows using cookies or refresh tokens must restore the user session after a browser refresh instead of forcing a fresh login
-
-### Why not pure waterfall
-Pure waterfall is too rigid for AI agents and software startups. It delays feedback and causes bad assumptions to spread.
-
-### Why not pure free-form agile
-Purely free collaboration causes duplication, contradictions, and drift.
-
-### Our model
-Use:
-- short iterative cycles
-- clear responsibility per role
-- lightweight documentation
-- feedback loops after every major deliverable
-
-## Repository Structure Rule
-
-All new product work must be organized under:
-
-```text
-products/<product-slug>/
-```
-
-Guidelines:
-- create one folder per product
-- use lowercase kebab-case for folder names
-- keep all product-specific context, plans, design docs, handoffs, QA notes, and ops material inside that product folder
-- avoid scattering product files across shared top-level directories unless the file is part of the company-wide operating system
-
-Recommended product layout:
-
-```text
-products/<product-slug>/
-├── README.md
-├── context/
-├── planning/
-├── architecture/
-├── implementation/
-├── qa/
-├── ops/
-└── handoffs/
-```
-
-## Mandatory Handoffs
-
-1. CEO gives business goal
-2. PM receives the goal and assigns BA analysis; BA produces a concise CEO presentation and functional specification as two standalone HTML files, and PM submits both for CEO approval following `playbooks/document-standards.md`
-3. After CEO approval of both requirements HTML documents, PM hands their approved versions to the Architect, who creates `architecture/technical-spec.html` with PlantUML diagrams and records assumptions/unknown details; BA and Architect may ask clarification questions through PM
-4. PM submits the Architect's high-level `ceo-tech-presentation.html` and supporting `technical-spec.html` for CEO design approval; only then does the Tech Lead review implementation details, ask for clarification, and record confirmed answers and work items in `implementation/technical-spec.html` for both frontend and backend development
-5. Developers implement
-6. QA validates against requirements and edge cases
-7. DevOps prepares build, release, and deployment approach
-8. PM consolidates role handoffs and reports the outcome; CEO reviews and decides the next step
-
-Each handoff should be stored in the relevant product folder when it is product-specific.
-
-## Escalation Rules
-
-Escalate to CEO when:
-- scope changes materially
-- requirements conflict
-- architecture adds significant cost or complexity
-- release risk is high
-- timeline cannot be met
+- CORS must support the real delivered frontend origin, not only local development defaults.
+- Cookie-based or refresh-token authentication must restore valid sessions across browser refresh.
+- Build and package according to the deployment playbook; keep local changes distinct from the live release.

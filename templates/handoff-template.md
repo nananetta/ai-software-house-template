@@ -15,9 +15,10 @@
 ## Context
 [relevant business or technical background]
 
-## Inputs
-- item 1
-- item 2
+## Inputs and Baseline
+- [artifact path and exact version/revision]
+- [applicable approval record and conditions, or not applicable]
+- [link to product STATUS.md]
 
 ## Constraints
 - constraint 1
@@ -35,6 +36,9 @@
 ## Risks
 - risk 1
 - risk 2
+
+## Status Update for PM
+[completed work, affected deliverable versions, blockers, and next action/owner; PM updates STATUS.md]
 
 ## Storage Location
 [exact file or folder path inside products/<product-slug>/]

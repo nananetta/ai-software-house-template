@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>{{TITLE}}</title>
+<style>
+{{STYLE}}
+@page { size: A4 landscape; margin: 14mm; }
+</style>
+<!-- CDN dependency: @plantuml/core 1.2026.8, MIT. Graphviz/Viz distribution retains its bundled notices.
+{{LICENSE}}
+-->
+</head>
+<body class="presentation" data-render-state="pending">
+<nav class="toolbar" aria-label="Document controls"><button id="previous" type="button">← Previous</button><output id="slide-count" aria-live="polite"></output><button id="next" type="button">Next →</button>
+<button id="print-document" type="button">Print / PDF</button>
+<span id="render-status" role="status" aria-live="polite">Loading local diagram renderer…</span>
+</nav>
+
+<p class="print-warning">Diagrams are not ready. Return to the document and use Print / PDF after resolving diagram errors.</p>
+<noscript><p>JavaScript is disabled. Document text and diagram source remain available; enable JavaScript to render diagrams before printing.</p></noscript>
+<main>
+{{CONTENT}}
+</main>
+<script>
+{{RUNTIME}}
+</script>
+</body>
+</html>

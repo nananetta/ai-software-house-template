@@ -1,5 +1,9 @@
 # Document Standards
 
+## Reusable Starting Point
+
+Use `templates/html/README.md` for the two shared HTML shells and five role-specific outlines. Generate the selected starter, keep authored product content under the product folder, and deliver the single HTML file at its canonical path. Replace illustrative examples and placeholders; templates do not imply requirements, architectural decisions, or CEO approval. The standards below remain the content and verification contract.
+
 ## CEO Requirements → PM → BA → PM
 
 When the CEO provides product requirements, the PM agent receives the brief, frames the objective and scope, and assigns analysis to a BA agent using `roles/business-analyst.md` and the handoff template. The BA analyzes requirements and prepares the two HTML deliverables below. The PM reviews both for consistency, owns prioritization and the recommendation, and returns them to the CEO for approval. Only after the CEO approves both documents does PM hand the approved files and recorded decisions to the Solution Architect.
@@ -48,9 +52,9 @@ Maintain an **Assumptions and unknown details** section in `functional-spec.html
 
 ## Requirements Approval and Architecture Handoff
 
-PM records CEO approval of both `planning/ceo-presentation.html` and `planning/functional-spec.html`, identifying their approved versions or revisions in the product's `handoffs/` records. Send those exact approved files, the approval record, constraints, and any accepted open items to the Solution Architect. Draft completion or silence is not approval. Do not start the solution-design phase before this approval gate.
+Follow the requirements gate in `decision-rules.md` and the version/evidence procedure in `product-tracking.md`. PM hands the approved planning pair, decision record, constraints, and accepted open items to the Architect after that gate is satisfied.
 
-If architecture reveals a material scope or requirement change, return it through PM for CEO resolution and update the affected requirements documents for renewed approval. Approval of requirements does not authorize deployment; the separate deployment rules still apply.
+For revised requirements, use the change classification and downstream impact procedure in `product-tracking.md`. Publication remains governed by `deployment-rules.md`.
 
 ## CEO Technical Presentation and Design Approval
 
@@ -67,7 +71,7 @@ Aim for 4–6 slides, adapting to the decisions needed:
 
 Use additional diagrams only when useful. Follow the shared presentation style and the same semantic single-file HTML, embedded PlantUML, client-side rendering, extraction, and Print / PDF standards. Keep this presentation consistent with the technical specification, which holds the supporting detail.
 
-PM reviews both files and submits the technical presentation with the supporting technical specification for CEO design approval. Record the design decision and the versions of both files in `handoffs/`. Only after CEO design approval does PM hand the approved design package and accepted open items to the Tech Lead for technical planning and implementation. Silence or document completion is not approval. Material changes to the approved design return to the CEO through PM; minor implementation decisions remain with the responsible role within that design. Design approval does not authorize deployment.
+PM reviews both files and submits the architecture pair under the design gate in `decision-rules.md`. Use `product-tracking.md` for exact artifact versions, CEO evidence, subsequent changes, and the approved handoff to Tech Lead. Publication remains governed by `deployment-rules.md`.
 
 ## Technical Specification
 
@@ -142,7 +146,6 @@ All five files must support the browser's Print / Save as PDF function and inclu
 - Render PlantUML locally in the browser with a client-side `plantuml.js` implementation or a suitable newer TeaVM-based PlantUML JavaScript library. Use a browser-compatible distribution that satisfies the single-file/CDN-JavaScript constraint, including its transitive dependencies.
 - Do not send diagram source to a remote PlantUML server, use a remote diagram-image URL, or replace the editable source with a screenshot. A URL encoder alone is not a renderer.
 - CDN JavaScript may require internet access on first load; do not claim fully offline rendering unless it has been verified. If rendering fails, show a clear message and keep the document text and embedded diagram source readable.
-- The existing `templates/technical-spec/` demonstrates embedded semantic content and client-side PlantUML rendering; use its mechanics where suitable, but replace its fictional content and do not treat it as a functional specification baseline.
 
 ## Review Before Delivery
 

@@ -1,5 +1,7 @@
 # Delivery Lifecycle
 
+PM maintains current phase and next action in `STATUS.md`. Use `product-tracking.md` for status updates, version-specific approval records, and changes after approval; use `decision-rules.md` for authority.
+
 ## Stage 1: CEO Brief
 
 CEO provides:
@@ -11,7 +13,8 @@ CEO provides:
 
 Repository action:
 - create or confirm `products/<product-slug>/`
-- add the initial product `README.md`
+- add the initial product `README.md` with a link to `STATUS.md`
+- initialize `STATUS.md` from `templates/product-status-template.md` per `product-tracking.md`
 - store CEO brief material under `context/` or `planning/`
 
 ## Stage 2: PM Intake → BA Analysis → PM Review
@@ -108,4 +111,4 @@ CEO decides:
 - continue next iteration
 
 Repository action:
-- record final review notes in the product folder `README.md` or `planning/`
+- retain final review decisions/evidence under `handoffs/` and update `STATUS.md`; follow `product-tracking.md` for approval records

@@ -1,0 +1,41 @@
+<article id="document-content" data-document-type="implementation-technical-spec">
+<header><h1>[Product] — Implementation technical specification</h1><p>TEMPLATE / DRAFT — replace bracketed prompts and illustrative examples; no product decisions or approvals are recorded.</p><dl data-role="document-metadata"><dt>Owner</dt><dd data-field="owner">Tech Lead</dd><dt>Stage</dt><dd data-field="stage">Implementation planning</dd><dt>Version</dt><dd data-field="version">0.1-draft</dd><dt>Status</dt><dd data-field="status">Template — unapproved</dd><dt>Updated</dt><dd data-field="updated">[YYYY-MM-DD]</dd><dt>Upstream baseline</dt><dd data-field="baseline">[Approved requirements/design versions and approval records]</dd></dl></header>
+<section id="implementation-baseline" aria-labelledby="implementation-baseline-title">
+<h2 id="implementation-baseline-title">Implementation baseline and scope</h2>
+<p><strong>Purpose:</strong> Shared frontend/backend development reference for [approved slice].</p><p><strong>Inputs:</strong> [Approved planning and architecture versions, decision records and accepted open items].</p><p><strong>Boundary:</strong> [Confirmed implementation scope and excluded work]. Preserve the separate architecture specification.</p>
+</section>
+<section id="shared-contracts" aria-labelledby="shared-contracts-title">
+<h2 id="shared-contracts-title">Responsibilities and confirmed contracts</h2>
+<table><caption>Shared contract — proposed until confirmed</caption><thead><tr><th scope="col">ID</th><th scope="col">Boundary / contract</th><th scope="col">Status / confirmation</th></tr></thead><tbody><tr><th scope="row">CON-001</th><td>[Frontend/backend responsibility; endpoint or local interface, method, request/response fields and types]</td><td>Unresolved — [decision-log reference]</td></tr><tr><th scope="row">CON-002</th><td>[Validation, errors, auth, session restoration and local/public origin behavior; or N/A]</td><td>Unresolved — [decision-log reference]</td></tr></tbody></table><figure id="sequence-diagram"><figcaption>Illustrative interaction — replace with agreed behavior</figcaption><p data-role="diagram-description">The interface requests a result from a logical processing component, which returns a result or a validation error.</p><script type="text/plain" data-role="diagram-source">
+@startuml
+actor User
+participant Interface
+participant Processing
+User -> Interface: Request outcome
+Interface -> Processing: Validate and process
+alt Accepted
+Processing --> Interface: Result
+else Rejected
+Processing --> Interface: Validation error
+end
+Interface --> User: Show outcome
+@enduml
+</script><div data-role="diagram-render"></div></figure>
+</section>
+<section id="ui-data-config" aria-labelledby="ui-data-config-title">
+<h2 id="ui-data-config-title">UI, data and configuration</h2>
+<table><caption>Implementation details</caption><thead><tr><th scope="col">Area</th><th scope="col">Confirmed detail / unresolved question</th><th scope="col">Owner</th></tr></thead><tbody><tr><th scope="row">UI</th><td>[Routes, states, loading/empty/error/accessibility behavior]</td><td>Frontend</td></tr><tr><th scope="row">Data</th><td>[Models, persistence, migrations and retention; or N/A]</td><td>Backend / Tech Lead</td></tr><tr><th scope="row">Configuration</th><td>[Variable names, defaults and local setup; no secret values]</td><td>Tech Lead / DevOps</td></tr></tbody></table>
+</section>
+<section id="work-breakdown" aria-labelledby="work-breakdown-title">
+<h2 id="work-breakdown-title">Work order and acceptance</h2>
+<table><caption>Requirement → task → acceptance</caption><thead><tr><th scope="col">Task</th><th scope="col">Requirement / contract</th><th scope="col">Owner</th><th scope="col">Dependency / acceptance</th></tr></thead><tbody><tr><th scope="row">TASK-001</th><td>FR-001 / CON-001</td><td>[Frontend or Backend]</td><td>[Confirmed prerequisite and AC-001 check]</td></tr><tr><th scope="row">TASK-002</th><td>[NFR / contract ID]</td><td>[Owner]</td><td>[Dependency, review checkpoint and test]</td></tr></tbody></table><p>Assign dependent work only after material details are confirmed. Record contract changes here and notify both developer roles.</p>
+</section>
+<section id="local-validation" aria-labelledby="local-validation-title">
+<h2 id="local-validation-title">Local build and validation</h2>
+<dl><dt>Prerequisites</dt><dd>[Runtime/tool versions and setup]</dd><dt>Build / start</dt><dd>[Exact confirmed local commands and outputs]</dd><dt>Checks</dt><dd>[Unit/integration/user-flow commands; origin/session checks when applicable]</dd><dt>Evidence</dt><dd>[QA/build evidence locations and expected result]</dd></dl><p>Build the approved Workers assets or Docker deliverable locally. Live publication follows the CEO deploy/redeploy request and the product operations instructions.</p>
+</section>
+<section id="decisions-clarifications" aria-labelledby="decisions-clarifications-title">
+<h2 id="decisions-clarifications-title">Clarifications and implementation decisions</h2>
+<table><caption>Decision log — unresolved placeholders are not confirmed</caption><thead><tr><th scope="col">ID</th><th scope="col">Question</th><th scope="col">Confirmed answer</th><th scope="col">Owner / date</th><th scope="col">Affected item</th><th scope="col">Status</th></tr></thead><tbody><tr><th scope="row">IMP-Q-001</th><td>[Missing implementation detail]</td><td>None recorded</td><td>[Owner] / [YYYY-MM-DD]</td><td>CON-001 / TASK-001</td><td data-field="decision-status">Unresolved</td></tr><tr><th scope="row">IMP-A-001</th><td>[Proposed assumption]</td><td>None recorded</td><td>[Owner] / [YYYY-MM-DD]</td><td>[Requirement / contract]</td><td data-field="decision-status">Unconfirmed</td></tr></tbody></table><p>Architecture questions go to Architect; business questions to BA/PM. Material changes return through PM for the applicable CEO gate. Record confirmed answers with their actual evidence and dates.</p>
+</section>
+</article>
