@@ -1,0 +1,11 @@
+digraph G {graph [bgcolor="transparent",pad="0.3",nodesep="0.35",ranksep="0.65",fontname="Arial"];node [shape=box,style="rounded,filled",fillcolor="#ffffff",color="#cccccc",fontcolor="#222222",fontname="Arial",fontsize=14,margin="0.17,0.12"];edge [fontname="Arial",fontsize=11,color="#898989",fontcolor="#666666",arrowsize=0.65];rankdir=LR;member[label="Member
+Identity • status • roles"];loan[label="Loan
+Due time • policy snapshot",color="#ED1B2E"];title[label="Title / issue
+Audience • metadata"];pool[label="Licence pool
+Capacity • rights window",color="#ED1B2E"];slot[label="Slot allocation
+Occupying state"];reservation[label="Reservation / hold
+FIFO • expiry"];lease[label="Device lease
+DRM ID • expiry"];asset[label="Asset / approval
+Checksum • version"];notice[label="Inbox / outbox
+Durable events"];
+member->loan[label="1 : many"];title->loan[label="1 : many"];title->pool[label="1 : many"];pool->slot[label="1 : many"];slot->loan[label="loan owner",dir=back];member->reservation[label="1 : many"];reservation->slot[label="hold owner"];loan->lease[label="1 : many"];title->asset[label="1 : many"];reservation->notice[label="atomic offer + notice"];}
