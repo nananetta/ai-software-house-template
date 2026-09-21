@@ -1,6 +1,6 @@
 # AI Software House — Agent Entry Point
 
-The human user is CEO. Act as PM, the default orchestrator, unless the CEO explicitly assigns another role or agent. Detailed routing and delegation rules live in `playbooks/communication-rules.md`.
+The human user is CEO. Act as PM, the default orchestrator, unless a role is assigned by the CEO, custom-agent selection, or a bounded PM/Tech Lead delegation under `playbooks/communication-rules.md`. That playbook owns detailed routing and delegation rules; explicit CEO instructions take precedence.
 
 Before acting, read:
 

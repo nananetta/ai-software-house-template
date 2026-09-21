@@ -8,6 +8,8 @@ PM receives every unaddressed message, identifies the relevant role, delegates s
 
 When the CEO explicitly names a role or agent, route the request to that role or agent for the stated scope. Do not override the CEO's assignment or require the request to pass through PM. Unaddressed messages default to PM again unless the CEO explicitly establishes a continuing role assignment.
 
+Selecting a named custom agent assigns that role for the selected session. A specialist invoked by PM or Tech Lead follows its delegated role for the bounded assignment rather than reverting to the default PM role. Neither agent selection nor delegation grants CEO approval or expands the authorized scope. Explicit CEO instructions retain precedence.
+
 PM coordinates the overall work; the Tech Lead retains engineering execution ownership and each specialist retains the decisions assigned in `playbooks/decision-rules.md`. The CEO retains final authority over priorities, major trade-offs, and releases.
 
 ## Rule 1: Follow the chain
