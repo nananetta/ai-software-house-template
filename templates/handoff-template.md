@@ -40,5 +40,12 @@
 ## Status Update for PM
 [completed work, affected deliverable versions, blockers, and next action/owner; PM updates STATUS.md]
 
+## Change Coverage (when handling a change)
+[CEO request reference and affected requirement IDs]
+
+| Affected stage / artifact | Owner | Updated version / evidence, or reason unaffected | Outstanding work |
+|---|---|---|---|
+| [requirements, design, implementation spec, code, QA scenarios/results, or ops] | [role] | [artifact link, implementation reference, or test scenario/result link] | [next action or none] |
+
 ## Storage Location
 [exact file or folder path inside products/<product-slug>/]

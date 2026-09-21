@@ -2,6 +2,8 @@
 
 PM maintains current phase and next action in `STATUS.md`. Use `product-tracking.md` for status updates, version-specific approval records, and changes after approval; use `decision-rules.md` for authority.
 
+When the CEO requests a change, follow the cross-stage change procedure in `product-tracking.md`. Revisit the affected requirements, architecture, implementation specification, code, and QA scenarios in dependency order; reconcile them before reporting the change complete.
+
 ## Stage 1: CEO Brief
 
 CEO provides:

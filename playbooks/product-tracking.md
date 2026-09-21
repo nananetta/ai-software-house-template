@@ -20,6 +20,24 @@ Use `templates/approval-record-template.md` under `handoffs/approvals/`, with a 
 
 Do not fabricate a past approval during initialization. Existing CEO decisions in the conversation may be recorded with their evidence; reconstruct exact artifact versions only when verifiable. If approved content cannot be recovered, flag the baseline as unverified and resolve that gap before dependent work.
 
+## CEO Change Requests Across the Delivery Process
+
+Every CEO change request must be carried through the affected process stages. PM records the request and its source in a product handoff, identifies affected requirement IDs and artifacts, and assigns the responsible roles. This applies to new features, revisions, and defect fixes at any stage, including after deployment.
+
+| Owner | Required change work |
+|---|---|
+| BA, reviewed by PM | Update `planning/functional-spec.html`: behavior, business rules, functional/non-functional requirements, acceptance criteria, and clarified assumptions. Update `planning/ceo-presentation.html` when management scope, value, risks, or decisions change. |
+| Solution Architect | Update `architecture/technical-spec.html`: affected components, data/API decisions, diagrams, quality attributes, and assumptions. Update `architecture/ceo-tech-presentation.html` when the high-level design or CEO decision changes. |
+| Tech Lead | Update `implementation/technical-spec.html`: confirmed implementation details, shared contracts, tasks, dependencies, and decision log. Communicate revised versions to both developer roles. |
+| Frontend / Backend Developers | Update the affected code, automated tests, and integration behavior to match the revised specifications. |
+| QA / Test Engineer | Update test scenarios and cases under `qa/`, including changed expected results, negative/edge paths, and relevant regression coverage. Execute the affected checks against the changed build and record results, defects, and evidence. |
+| DevOps / Platform Engineer | Update build, configuration, deployment, or operational instructions when affected. Publication still follows the explicit deployment request rule. |
+| PM | Reconcile artifact versions, approvals, handoffs, and STATUS.md; verify that specifications, code, and QA scenarios describe the same behavior before reporting completion. |
+
+Revisit each applicable stage; do not implement a code-only change and leave its specification or QA scenarios stale. In the change handoff, link the request and affected requirement IDs to updated artifacts, implementation references, test scenario IDs, and execution evidence. For an unaffected artifact, record a short reason instead of making cosmetic edits. For example, a defect fix may restore already-specified behavior without changing that requirement, but still requires the affected tests to be reviewed and regression behavior verified.
+
+Update affected specifications before dependent implementation, following the existing approval rules below. Maintain confirmed answers and explicit unknowns rather than guessing. Work not yet applicable to the current authorized phase stays identified as pending in the handoff; do not claim the whole change is complete while required downstream updates or validation remain outstanding.
+
 ## Changes After Approval
 
 Never update an approval record's original artifact identities to make an old decision cover new bytes. Increment document versions for content changes. Compare changes against the retained baseline and classify them with the responsible owner: PM for requirements, Architect for design, Tech Lead for implementation.

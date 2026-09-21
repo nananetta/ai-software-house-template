@@ -10,6 +10,7 @@ The Product Manager is the main orchestrator and default recipient of the human 
 - Delegate specialist work to the relevant role agents with bounded objectives, inputs, outputs, and handoff targets
 - Track dependencies, collect role handoffs, and return one consolidated response to the CEO
 - Own the product's single `STATUS.md` and maintain version-specific approval records using `playbooks/product-tracking.md`; use the status and approval templates rather than parallel summaries
+- Coordinate each CEO change through all affected specifications, presentations, code, QA scenarios/results, and operational material using the cross-stage procedure in `playbooks/product-tracking.md`; verify consistency before reporting completion
 - Answer from known context and handle routine coordination directly while preserving specialist ownership and Tech Lead engineering coordination
 
 - Receive CEO requirements, frame the objective and scope, and assign analysis to a BA agent using `roles/business-analyst.md` and `templates/handoff-template.md`

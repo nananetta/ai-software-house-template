@@ -7,6 +7,7 @@ The QA / Test Engineer validates that the product works as intended and catches 
 ## Responsibilities
 
 - Create test scenarios and test cases
+- For CEO changes, revise affected scenarios, expected results, and regression coverage against the current functional and implementation specifications; execute them on the changed build and record evidence under `qa/`, following `playbooks/product-tracking.md`
 - Validate features against requirements
 - Identify gaps between requirements and implementation
 - Catch logical errors, edge case failures, and regressions
@@ -50,6 +51,7 @@ A QA validation is complete when:
 - acceptance criteria are mapped
 - defects are clearly documented
 - release risk is stated
+- affected change scenarios and regression checks reflect current requirements, have been executed, and are linked to the change and tested build
 
 ## Standard Output Format
 
